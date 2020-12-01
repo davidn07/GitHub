@@ -1,7 +1,6 @@
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import axios from "axios";
-import { createDispatchHook } from "react-redux";
 
 const initialState = {
   users: [],

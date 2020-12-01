@@ -1,18 +1,19 @@
 import React, { useEffect } from "react";
 import { Row, Col, Avatar } from "antd";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getContributors } from "./redux";
 import Contributors from "./Contributors";
 
 const UserDetails = ({
-  contributors,
-  getContributors,
   location: {
     state: { user },
   },
 }) => {
+  const contributors = useSelector((state) => state.contributors);
+
+  const dispatch = useDispatch();
   useEffect(() => {
-    getContributors(user);
+    dispatch(getContributors(user.contributors_url));
   }, []);
 
   return (
@@ -28,7 +29,7 @@ const UserDetails = ({
         </Col>
       </Row>
       <Row justify='center'>
-        <Col xs={{ span: 20 }} md={{ span: 14 }}>
+        <Col>
           <p>{user.description}</p>
         </Col>
       </Row>
@@ -42,16 +43,4 @@ const UserDetails = ({
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    contributors: state.contributors,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getContributors: (user) => dispatch(getContributors(user.contributors_url)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserDetails);
+export default UserDetails;

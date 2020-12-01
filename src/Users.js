@@ -1,37 +1,26 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getUsers } from "./redux";
-import { Row, Col} from "antd";
-import User from './User'
+import { Row, Col } from "antd";
+import User from "./User";
 
-const Users = ({ users, getUsers }) => {
+const Users = () => {
+  const users = useSelector((state) => state.users);
+  const dispatch = useDispatch();
   useEffect(() => {
-    getUsers();
+    dispatch(getUsers());
   }, []);
 
-  
   console.log(users);
   return (
     <div>
       <Row justify='center'>
         <Col span={20}>
-          <User users={users}/>
+          <User users={users} />
         </Col>
       </Row>
     </div>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    users: state.users,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getUsers: () => dispatch(getUsers()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Users);
+export default Users;
