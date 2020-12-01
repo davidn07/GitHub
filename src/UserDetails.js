@@ -28,7 +28,7 @@ const UserDetails = ({
         </Col>
       </Row>
       <Row justify='center'>
-        <Col>
+        <Col xs={{ span: 20 }} md={{ span: 14 }}>
           <p>{user.description}</p>
         </Col>
       </Row>
